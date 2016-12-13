@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://models/viking.scn" type="PackedScene" id=1]
+[ext_resource path="res://items/axe/equiped.tscn" type="PackedScene" id=2]
+
+[node name="viking" instance=ExtResource( 1 )]
+
+transform/local = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0 )
+
+[node name="Skeleton" parent="Armature"]
+
+bones/6/bound_childs = [ NodePath("hand_L") ]
+bones/10/bound_childs = [ NodePath("hand_R") ]
+
+[node name="hand_R" type="BoneAttachment" parent="Armature/Skeleton"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.348708, -0.918555, -0.18617, -1.49012e-07, 0.198638, -0.980073, 0.937231, 0.341759, 0.0692669, -5.3743, 4.27664, -0.269236 )
+bone_name = "hand_R"
+
+[node name="axe" parent="Armature/Skeleton/hand_R" instance=ExtResource( 2 )]
+
+transform/local = Transform( -0.346237, -0.936181, -0.0607032, 0.889242, -0.348119, 0.296751, -0.298946, 0.0487657, 0.953025, 0, 0, 0 )
+
+[node name="hand_L" type="BoneAttachment" parent="Armature/Skeleton"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.348708, 0.918555, 0.18617, -4.47035e-08, 0.198638, -0.980073, -0.937232, 0.341759, 0.0692669, 5.3743, 4.27664, -0.269235 )
+bone_name = "hand_L"
+
+[node name="axe" parent="Armature/Skeleton/hand_L" instance=ExtResource( 2 )]
+
+transform/local = Transform( 0.65776, -0.737435, -0.153432, 0.752874, 0.64992, 0.10386, 0.0231282, -0.183829, 0.982686, 0, 0, 0 )
+
+

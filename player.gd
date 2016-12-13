@@ -1,0 +1,257 @@
+extends KinematicBody
+
+# class member variables go here, for example:
+# var a = 2
+# var b = "textvar"
+
+var AIM_COLORS = [Color("00B74A"), Color("4811AE"), Color("FFDF00"), Color("FF3100"), Color("000000")]
+
+
+var GRAVITY_VEC = Vector3(0,1,0)
+var GRAVITY_STR = -1
+
+var velocity = Vector3(0,0,0)
+
+export var SPEED = 8
+var JUMP_FORCE = 9
+
+var jumping = false
+var MAX_JUMP_HEIGHT = 3
+var current_jump_height = 0
+
+var ACCEL = 0.5
+
+var has_second_jump
+
+var to = Vector3(0,0,0)
+var from = Vector3(0,0,0)
+
+var aim_dir = Vector3(1,0,0)
+
+var colpos = Vector3(0,0,0)
+
+var id = 0
+
+var dead = false
+# 0 keyboard and mouse
+# 1 player 1
+# 2 player 2
+# 3 player 3
+# 4 player 4
+
+var lock = false
+
+var guide_material = null
+
+var kills = 0
+var deaths = 0
+var drinks = 0
+
+var health = 3
+
+var on_fire = false
+
+var fire_timer = -1
+var fire_duration = 1.5
+
+var max_drinking_influence = 0.03
+
+var game_time = 0
+
+var immunity_timer = -1
+var immunity_duration = 1.5
+
+export var last_col = ""
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	set_fixed_process(true)
+
+func set_on_fire(b):
+	#Fire burns one heart a second
+	if b and not on_fire:
+		on_fire = true
+		fire_timer = fire_duration
+		var fire = preload("res://fire.tscn").instance()
+		
+		get_node("effects").add_child(fire)
+		
+		add_to_group("fire")
+		
+	elif on_fire and not b:
+		var fire = get_node("effects/fire")
+		if fire != null:
+			fire.queue_free()
+		on_fire = false
+		fire_timer = -1
+
+func set_player_id(_id):
+	id = _id
+	guide_material = FixedMaterial.new()
+	guide_material.set_parameter(guide_material.PARAM_DIFFUSE, AIM_COLORS[id])
+	get_node("aim/guide").set_material_override(guide_material)
+	get_node("target/guide").set_material_override(guide_material)
+	if id != 0:
+		get_node("target").set_hidden(true)
+	else:
+		get_node("target").set_hidden(false)
+
+func _fixed_process(delta):
+	game_time += delta
+	if game_time < 1.0:
+		return
+	if immunity_timer > 0:
+		immunity_timer -= delta
+	if fire_timer > 0:
+		fire_timer -= delta
+	if id == 0:
+		from = get_node("../../").get_camera().project_ray_origin(get_viewport().get_mouse_pos())
+		to = from + get_node("../../").get_camera().project_ray_normal(get_viewport().get_mouse_pos())*1000
+		var ds = PhysicsServer.space_get_direct_state(get_world().get_space())
+		var col = ds.intersect_ray(from, to)
+		if("collider" in col.keys()):
+			var obj = col["collider"]
+			colpos = col["position"]
+			get_node("target").set_translation(colpos - get_translation())
+	
+	var idle = false
+	
+	if not lock:
+		#Jumping and Falling
+		if jumping:
+			#Jumping
+			velocity.y = JUMP_FORCE * delta
+			
+			current_jump_height += velocity.y
+			if current_jump_height > MAX_JUMP_HEIGHT:
+				jumping = false
+		else:
+			#Falling
+			if not get_node("RayCast").is_colliding():
+				velocity.y += GRAVITY_STR * delta
+				
+				if abs(velocity.y) > abs(GRAVITY_STR):
+					velocity.y = GRAVITY_STR * delta
+				if Input.is_action_just_pressed("player_"+str(id)+"_jump") and has_second_jump:
+					jumping = true
+					current_jump_height = 0
+					has_second_jump = false
+			if get_node("RayCast").is_colliding():
+				if Input.is_action_just_pressed("player_"+str(id)+"_jump"):
+					jumping = true
+					current_jump_height = 0
+		
+		if Input.is_action_just_released("player_"+str(id)+"_jump"):
+			#Falling
+			jumping = false
+		
+		# Moving along the ground
+		
+		var to_move = Vector3(0,0,0)
+		if id == 0:
+			if Input.is_action_pressed("player_"+str(id)+"_down"):
+				to_move.z += 1
+			if Input.is_action_pressed("player_"+str(id)+"_up"):
+				to_move.z -= 1
+			if Input.is_action_pressed("player_"+str(id)+"_left"):
+				to_move.x -= 1
+			if Input.is_action_pressed("player_"+str(id)+"_right"):
+				to_move.x += 1
+		else:
+			var temp = Vector3(Input.get_joy_axis(id - 1, 0), 0, Input.get_joy_axis(id - 1, 1))
+			if abs(temp.x) > 0.25:
+				to_move.x = sign(temp.x)
+			if abs(temp.z) > 0.25:
+				to_move.z = sign(temp.z)
+		if to_move.length() == 0:
+			idle = true
+		
+		if not jumping:
+			if get_node("RayCast").is_colliding():
+				has_second_jump = true
+				#Regularr Moving
+				velocity.x = to_move.normalized().x * SPEED * delta
+				velocity.z = to_move.normalized().z * SPEED * delta
+				
+				var drunk_vector = Vector3(1,0,0)
+				var drunk_angle = cos(game_time / max((15 - drinks),3) + id)
+				drunk_vector = drunk_vector.rotated(Vector3(0,1,0), drunk_angle * PI)
+				var drunk_power = sin(game_time / min((20 - drinks),10))
+				velocity += drunk_vector * max_drinking_influence * drinks * delta * SPEED
+				
+				velocity = velocity.normalized() * SPEED * delta
+				var flat_vel =  velocity
+				flat_vel.y = 0
+				
+				if idle and get_node("viking/AnimationPlayer").get_current_animation() != "Idle-loop" and flat_vel.length() < SPEED * 0.1 * delta:
+					get_node("viking/AnimationPlayer").play("Idle-loop")
+				elif ((not idle) or (idle and flat_vel.length() > SPEED * 0.1 * delta)):
+					if get_node("viking/AnimationPlayer").get_current_animation() != "Run-loop":
+						get_node("viking/AnimationPlayer").play("Run-loop")
+					get_node("viking").set_rotation(Vector3(0, atan2(velocity.x, velocity.z), 0))
+		else:
+			velocity = velocity.linear_interpolate(to_move.normalized() * SPEED * delta, 0.1)
+	else:
+		velocity.y += GRAVITY_STR * delta
+	var motion = move(velocity)
+	
+	while is_colliding():
+		var collider = get_collider()
+		var n = get_collision_normal()
+		motion = move(n.slide(motion))
+		if collider:
+			if not collider.is_queued_for_deletion():
+				if collider.is_in_group("fire"):
+					set_on_fire(true)
+				if collider.is_in_group("player"):
+					if on_fire:
+						collider.set_on_fire(true)
+				if collider.is_in_group("ham"):
+					health += 1
+					collider.queue_free()
+					collider.set_hidden(true)
+				
+			# Damage Taking Things
+	if on_fire and fire_timer < 0:
+		health -= 1
+		fire_timer = fire_duration
+
+	
+	if (not idle and not lock):
+		get_node("viking").set_rotation(Vector3(0, atan2(velocity.x, velocity.z), 0))
+	
+	if id == 0:
+		aim_dir = Vector3(colpos.x - get_translation().x, 0, colpos.z - get_translation().z).normalized()
+	else:
+		var temp = Vector3(Input.get_joy_axis(id - 1, 2), 0, Input.get_joy_axis(id - 1, 3))
+		if temp.length() > 0.25:
+			aim_dir = temp
+	get_node("aim").set_rotation(Vector3(0, atan2(aim_dir.x, aim_dir.z), 0))
+	
+	if health <= 0:
+		kill()
+
+func respawn():
+	set_on_fire(false)
+	health = 3
+	dead = false
+	if is_in_group("fire"):
+		remove_from_group("fire")
+
+func drink(d):
+	drinks +=1
+	d.set_hidden(true)
+
+func eat(d):
+	health +=1
+	d.set_hidden(true)
+
+func grant_immunity(d):
+	immunity_timer = d
+
+func kill():
+	var explosion = preload("res://explosion.tscn").instance()
+	explosion.set_translation(get_translation())
+	get_node("../../items").add_child(explosion)
+	dead = true

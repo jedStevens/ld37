@@ -1,0 +1,150 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://main_cam_env.tres" type="Environment" id=1]
+[ext_resource path="res://models/viking_hands.tscn" type="PackedScene" id=2]
+[ext_resource path="res://models/base_material.tres" type="Material" id=3]
+[ext_resource path="res://models/base.msh" type="Mesh" id=4]
+[ext_resource path="res://models/name_yxa.msh" type="Mesh" id=5]
+[ext_resource path="res://models/charcters/slagga_final.scn" type="PackedScene" id=6]
+[ext_resource path="res://models/name_slagga.msh" type="Mesh" id=7]
+
+[node name="characters" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.9787, 25.2888 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = false
+visible_layers = 1048575
+environment = ExtResource( 1 )
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="viking" parent="." instance=ExtResource( 2 )]
+
+transform/local = Transform( 0.820373, 0, -0.571828, 0, 1, 0, 0.571828, 0, 0.820373, 6.82488, 4.52191, -11.1298 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="viking"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.52591, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = ExtResource( 3 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 4 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+[node name="name_plate" type="MeshInstance" parent="viking/MeshInstance2"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 2, 0, 0, 0, 0.604394, -1.90649, 0, 1.90649, 0.604394, -1.18818, 0.663386, 3.0315 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 5 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 0.478462, 0.878108, 0, -0.878108, 0.478462, 0, 3.69437, 12.8725 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 0.933594, 0.774386, 0.470444, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="viking2" parent="." instance=ExtResource( 6 )]
+
+transform/local = Transform( 0.844324, 0, 0.535834, 0, 1, 0, -0.535834, 0, 0.844324, -6.72601, 0, -11.9593 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="viking2"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00399971, 0.21682 )
+layers = 1
+geometry/visible = true
+geometry/material_override = ExtResource( 3 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 4 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+[node name="name_plate" type="MeshInstance" parent="viking2"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 2, 0, 0, 0, 0.604394, -1.90649, -5.96046e-08, 1.90649, 0.604394, -2.44075, 0.659386, 3.24832 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 7 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+

@@ -1,0 +1,180 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://items/axe/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://models/axe.msh" type="Mesh" id=2]
+[ext_resource path="res://main_cam_env.tres" type="Environment" id=3]
+[ext_resource path="res://fonts/meadfont_72.fnt" type="BitmapFont" id=4]
+
+[node name="Control" type="HBoxContainer"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -2.0
+margin/bottom = 9.0
+alignment = 0
+script/script = ExtResource( 1 )
+
+[node name="axe" type="BoneAttachment" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.0293815, -0.247161, -0.0234121, 0.213886, 0.0371699, -0.123981, 0.126054, -0.00545906, 0.215825, 0, 0, 0 )
+bone_name = ""
+
+[node name="MeshInstance" type="MeshInstance" parent="axe"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 1.69407e-21, -5.96046e-08, -1.3027e-15, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 2 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.12657, 0.851874, 0.00393772 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = true
+visible_layers = 1048575
+environment = ExtResource( 3 )
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.415018, 0.685155, -0.598601, -0.39038, 0.728397, 0.563064, 0.821805, 0, 0.569769, -2.54864, 0, 0 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="Control" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 230.0
+margin/bottom = 591.0
+
+[node name="Control3" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 234.0
+margin/top = 0.0
+margin/right = 464.0
+margin/bottom = 591.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 468.0
+margin/top = 0.0
+margin/right = 792.0
+margin/bottom = 591.0
+use_top_left = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 146.0
+margin/right = 324.0
+margin/bottom = 444.0
+alignment = 0
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 324.0
+margin/bottom = 246.0
+custom_fonts/font = ExtResource( 4 )
+text = "Mead\nand\nMurder"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 250.0
+margin/right = 324.0
+margin/bottom = 298.0
+text = "DRINK THE MOST MEAD TO WIN!!!\n\n(2 Players) Space to Continue"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Control2" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 796.0
+margin/top = 0.0
+margin/right = 1026.0
+margin/bottom = 591.0
+
+

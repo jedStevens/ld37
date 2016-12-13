@@ -1,0 +1,362 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://game.gd" type="Script" id=1]
+[ext_resource path="res://models/room_playable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://main_cam_env.tres" type="Environment" id=3]
+[ext_resource path="res://fonts/timer_font_36.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://fonts/meadfont_72.fnt" type="BitmapFont" id=5]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 85.3688, 26.2486, 82.1916 )
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "default"
+length = 0.1
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("ui/Label:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ui/winner_lbl:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "end_game"
+length = 10.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("ui/Label:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ui/winner_lbl:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 10 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"change_to_character_select" } ] }
+
+[node name="game" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+script/script = ExtResource( 1 )
+game_duration = 150
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 0.551904, 0.833907, 0, -0.833907, 0.551904, 0, 0, 0 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 0.6
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="items" type="Spatial" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="room" parent="." instance=ExtResource( 2 )]
+
+transform/local = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 0.745589, 0.666405, 0, -0.666405, 0.745589, 0, 20.1861, 19.1073 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = false
+visible_layers = 1048575
+environment = ExtResource( 3 )
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="spawns" type="Spatial" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28632, 0 )
+
+[node name="Position3D" type="Position3D" parent="spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8618, 3.40263, -7.37097 )
+
+[node name="Position3D3" type="Position3D" parent="spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.224838, 2.01718, -7.9057 )
+
+[node name="Position3D4" type="Position3D" parent="spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7349, 2.01718, -8.02195 )
+
+[node name="Position3D5" type="Position3D" parent="spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5193, 3.4083, 6.79606 )
+
+[node name="Position3D2" type="Position3D" parent="spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2625, 2.50656, 7.5838 )
+
+[node name="item_spawns" type="Spatial" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66028, 0 )
+
+[node name="Position3D" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2569, 12.4705, -4.26381 )
+
+[node name="Position3D3" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2569, 12.4705, -0.050468 )
+
+[node name="Position3D6" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2734, 12.4705, -0.050468 )
+
+[node name="Position3D4" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1606, 14.7358, -4.02329 )
+
+[node name="Position3D5" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2023, 14.5878, 3.26137 )
+
+[node name="Position3D2" type="Position3D" parent="item_spawns"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1318, 12.2514, 3.37046 )
+
+[node name="players" type="Spatial" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="resetter" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.90757, 0 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -23.8344, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="resetter"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -23.8344, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="ui" type="VBoxContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1025.0
+margin/bottom = 601.0
+alignment = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="ui"]
+
+rect/min_size = Vector2( 0, 70 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1025.0
+margin/bottom = 70.0
+use_top_left = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/CenterContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 422.0
+margin/top = 16.0
+margin/right = 602.0
+margin/bottom = 53.0
+alignment = 0
+
+[node name="pre" type="Label" parent="ui/CenterContainer/HBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 125.0
+margin/bottom = 37.0
+custom_fonts/font = ExtResource( 4 )
+text = "Time Left:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="timer_lbl" type="Label" parent="ui/CenterContainer/HBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 129.0
+margin/top = 0.0
+margin/right = 180.0
+margin/bottom = 37.0
+custom_fonts/font = ExtResource( 4 )
+text = "000"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Control" type="Control" parent="ui"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 74.0
+margin/right = 1025.0
+margin/bottom = 222.0
+
+[node name="Label" type="Label" parent="ui"]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 226.0
+margin/right = 1025.0
+margin/bottom = 374.0
+custom_fonts/font = ExtResource( 5 )
+text = "GAME OVER"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="winner_lbl" type="Label" parent="ui"]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 378.0
+margin/right = 1025.0
+margin/bottom = 526.0
+custom_fonts/font = ExtResource( 4 )
+text = "Player 1 wins!"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="hud" type="CenterContainer" parent="ui"]
+
+rect/min_size = Vector2( 0, 70 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 530.0
+margin/right = 1025.0
+margin/bottom = 600.0
+use_top_left = false
+
+[node name="players" type="HBoxContainer" parent="ui/hud"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 512.0
+margin/top = 35.0
+margin/right = 512.0
+margin/bottom = 35.0
+alignment = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 3 )
+anims/end_game = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[connection signal="body_enter" from="resetter" to="." method="_on_resetter_body_enter"]
+
+
