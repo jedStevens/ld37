@@ -139,7 +139,7 @@ func _on_resetter_body_enter( body ):
 		var spawn =  get_node("spawns").get_child(body.id)
 		body.set_translation(spawn.get_translation())
 		if body.is_in_group("player"):
-			body.respawn()
+			body.kill()
 	else:
 		body.queue_free()
 

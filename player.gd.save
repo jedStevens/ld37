@@ -208,7 +208,62 @@ func _fixed_process(delta):
 						collider.set_on_fire(true)
 				if collider.is_in_group("ham"):
 					health += 1
-					collider.queue_free()
+var to_move = Vector3(0,0,0)
+	if Input.is_action_pressed("player_forward"):
+		to_move.z += 1
+	
+	if Input.is_action_pressed("player_backward"):
+		to_move.z -= 1
+	
+	if Input.is_action_pressed("player_right"):
+		to_move.x += 1
+	
+	if Input.is_action_pressed("player_left"):
+		to_move.x -= 1var to_move = Vector3(0,0,0)
+	if Input.is_action_pressed("player_forward"):
+		to_move.z += 1
+	
+	if Input.is_action_pressed("player_backward"):
+		to_move.z -= 1
+	
+	if Input.is_action_pressed("player_right"):
+		to_move.x += 1
+	
+	if Input.is_action_pressed("player_left"):
+		to_move.x -= 1var to_move = Vector3(0,0,0)
+	if Input.is_action_pressed("player_forward"):
+		to_move.z += 1
+	
+	if Input.is_action_pressed("player_backward"):
+		to_move.z -= 1
+	
+	if Input.is_action_pressed("player_right"):
+		to_move.x += 1
+	
+	if Input.is_action_pressed("player_left"):
+		to_move.x -= 1var to_move = Vector3(0,0,0)
+	if Input.is_action_pressed("player_forward"):
+		to_move.z += 1
+	
+	if Input.is_action_pressed("player_backward"):
+		to_move.z -= 1
+	
+	if Input.is_action_pressed("player_right"):
+		to_move.x += 1
+	
+	if Input.is_action_pressed("player_left"):
+		to_move.x -= 1var to_move = Vector3(0,0,0)
+	if Input.is_action_pressed("player_forward"):
+		to_move.z += 1
+	
+	if Input.is_action_pressed("player_backward"):
+		to_move.z -= 1
+	
+	if Input.is_action_pressed("player_right"):
+		to_move.x += 1
+	
+	if Input.is_action_pressed("player_left"):
+		to_move.x -= 1					collider.queue_free()
 					collider.set_hidden(true)
 				
 			# Damage Taking Things

@@ -27,7 +27,7 @@ func _fixed_process(delta):
 				if col.is_in_group("static"):
 					stab_timer = -1
 				if col.is_in_group("player"):
-					col.health -= 1
+					col.damage()
 					col.grant_immunity(1.5)
 			
 	

@@ -3,7 +3,7 @@ extends Control
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-var characters = ["Slagga", "Yxa", "Not Playing"]
+var characters = ["Slagga", "Yxa", "Svard", "Not Playing"]
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -15,8 +15,10 @@ func _ready():
 
 func _fixed_process(delta):
 	var size = get_viewport().get_rect().size
-	size.y = get_node("VBoxContainer/Label").get_size().y * 2
 	set_size(size)
+	
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().change_scene("res://main_menu.tscn")
 
 func _on_play_pressed():
 	get_tree().change_scene("res://game.tscn")
