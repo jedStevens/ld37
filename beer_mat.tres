@@ -1,0 +1,40 @@
+[gd_resource type="FixedSpatialMaterial" format=1]
+
+[resource]
+
+flags/transparent = true
+flags/unshaded = false
+flags/on_top = false
+flags/use_point_size = false
+vertex_color/use_as_albedo = false
+vertex_color/is_srgb = false
+params/diffuse_mode = 0
+params/blend_mode = 0
+params/cull_mode = 0
+params/depth_draw_mode = 0
+params/line_width = 1.0
+params/point_size = 1.0
+albedo/color = Color( 1, 1, 0.7, 0.344262 )
+specular/color = Color( 0.1, 0.1, 0.1, 1 )
+specular/roughness = 0.0
+emission/enabled = false
+normal/enabled = false
+rim/enabled = true
+rim/amount = 1.0
+rim/tint = 0.5
+clearcoat/enabled = true
+clearcoat/amount = 1.0
+clearcoat/gloss = 0.5
+anisotropy/enabled = false
+ao/enabled = false
+height/enabled = false
+subsurf_scatter/enabled = false
+refraction/enabled = true
+refraction/displacement = 0.0
+refraction/roughness = 0.0
+detail/enabled = false
+uv1/scale = Vector2( 1, 1 )
+uv1/offset = Vector2( 0, 0 )
+uv2/scale = Vector2( 1, 1 )
+uv2/offset = Vector2( 0, 0 )
+
